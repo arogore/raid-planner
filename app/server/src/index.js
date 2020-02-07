@@ -11,6 +11,7 @@ io.origins("*:*");
 server.listen(80);
 
 app.get('/', function (req, res) {
+  console.log('root requested!');
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -25,6 +26,7 @@ app.get('/room', function(req, res) {
 });
 
 io.on('connection', function (socket) {
+  console.log('new connection!');
   socket.join('room');
 
   socket.on('line-drawn', function(line) {
@@ -32,6 +34,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('point-drawn', function(line) {
+    console.log('point drawn!');
     io.to('room').emit('point-drawn', line);
   });
 });
