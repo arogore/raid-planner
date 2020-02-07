@@ -4,8 +4,10 @@ import Drawer from "./drawer";
 export default class Main {
 
     run() {
-        const socket = io.connect("http://arongore.com/planner", {
-            path: 'planner'
+        const url = "http://arongore.com/planner";
+        console.log(`Connecting to ${url}.`);
+        const socket = io.connect(url, {
+            path: '/planner/socket.io'
         });
 
         window.onload = () => {
