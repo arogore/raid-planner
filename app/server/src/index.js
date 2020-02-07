@@ -1,9 +1,11 @@
+var path = require('path');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-app.use(express.static('public'));
+const publicPath = path.join(__dirname, 'public');
+app.use('/public', express.static(publicPath));
 
 io.origins("*:*");
 server.listen(80);

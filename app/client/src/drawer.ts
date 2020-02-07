@@ -16,12 +16,13 @@ export default class Drawer {
         this.canvas = this.getCanvas();
         this.context = this.canvas.getContext("2d");
         this.context.lineWidth = 4;
+        this.context.strokeStyle = "aqua";
 
         this.dispatcher = new Dispatcher(socket, 'room');
         this.registerEvents();
 
         const bg = new Image();
-        bg.src = "/img/bwl-1.jpg";
+        bg.src = "/public/img/bwl-1.jpg";
 
         bg.onload = () => this.canvas.getContext("2d").drawImage(bg, 0, 0);
 
@@ -78,11 +79,9 @@ export default class Drawer {
         };
 
         this.canvas.onmousemove = (e) => {
-            console.info(e);
             if (this.drawing) {
                 const newPoint = this.constructPoint(e.clientX, e.clientY);
                 
-                console.log(this.currentLine[this.currentLine.length - 1]);
                 this.drawFrom(this.currentLine[this.currentLine.length - 1], newPoint);
                 this.currentLine.push(newPoint);
             }
