@@ -6,9 +6,9 @@ export default class Main {
 
     run() {
         const url = config.url;
-        const socket = io.connect(url);
 
         window.onload = () => {
+            const socket = io.connect(url);
             const drawer = new Drawer(socket);
         };
     }

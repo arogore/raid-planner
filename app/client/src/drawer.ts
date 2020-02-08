@@ -22,7 +22,7 @@ export default class Drawer {
         this.registerEvents();
 
         const bg = new Image();
-        bg.src = "/planner/public/img/bwl-1.jpg";
+        bg.src = "public/img/bwl-1.jpg";
 
         bg.onload = () => this.canvas.getContext("2d").drawImage(bg, 0, 0);
 
