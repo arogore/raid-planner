@@ -13,7 +13,7 @@ export default class LobbyManager {
 
     createLobby() {
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", `${config.url}/room?password=test`);
+        xhr.open("GET", `${config.url}/planner/room?password=test`);
 
         const self = this;
         xhr.onloadend = function(e) {

@@ -1,6 +1,5 @@
 import * as io from "socket.io-client";
 import Drawer from "./drawer";
-import config from "../config.default";
 import LobbyManager from "./lobby-manager";
 import Dispatcher from "./dispatcher";
 import Pickr from "@simonwep/pickr";
@@ -11,10 +10,10 @@ export default class Main {
     private lobbyManager: LobbyManager;
 
     run() {
-        const url = config.url;
+        const url = "http://127.0.0.1";
 
         window.onload = () => {
-            const socket = io.connect(url);
+            const socket = io.connect(url, { path: '/planner/socket.io/' });
             const dispatcher = new Dispatcher(socket);
             this.lobbyManager = new LobbyManager(dispatcher);
             this.drawer = new Drawer(socket, dispatcher);

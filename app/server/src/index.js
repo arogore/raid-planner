@@ -2,26 +2,20 @@ var path = require('path');
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
+const cors = require('cors');
 
 const LobbyManager = require('./lobby-manager');
 
 const app = express();
 const server = http.Server(app);
-const io = socketio(server);
+const io = socketio(server, { path: '/planner/socket.io/' });
 
 const lobbyManager = new LobbyManager();
 
 io.origins("*:*");
-server.listen(80);
+server.listen(23451);
 
-const publicPath = path.join(__dirname, 'public');
-app.use('/public', express.static(publicPath));
-
-app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/room', function(req, res) {
+app.get('/room', cors(), function(req, res) {
   const pw = 'test';//process.env.RAID_PLANNER_PASSWORD;
 
   if (!pw || req.query.password !== pw) {
