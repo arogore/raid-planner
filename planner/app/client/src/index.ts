@@ -3,6 +3,7 @@ import Drawer from "./drawer";
 import LobbyManager from "./lobby-manager";
 import Dispatcher from "./dispatcher";
 import Pickr from "@simonwep/pickr";
+import config from '../config.default';
 
 export default class Main {
 
@@ -10,7 +11,7 @@ export default class Main {
     private lobbyManager: LobbyManager;
 
     run() {
-        const url = "http://127.0.0.1";
+        const url = config.url;
 
         window.onload = () => {
             const socket = io.connect(url, { path: '/planner/socket.io/' });

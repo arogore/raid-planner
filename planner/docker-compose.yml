@@ -7,7 +7,4 @@ services:
     image: planner-nginx
     container_name: planner-nginx
     ports:
-    - "80:80"
-    volumes: 
-    - ./app/server/src/index.html:/usr/share/nginx/html/index.html
-    - ./app/server/src/public:/usr/share/nginx/html/public
+    - "8012:80"

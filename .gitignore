@@ -3,3 +3,5 @@
 **/bundle.js
 **/config.default.js
 **/*.swp
+**/*debug.log
+**/v8*cache*
