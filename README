@@ -1,5 +1,0 @@
-# Run
-node src/index.js in the server folder
-
-# Build (builds client)
-npm run build in the client folder
