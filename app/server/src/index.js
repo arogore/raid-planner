@@ -5,13 +5,9 @@ const socketio = require('socket.io');
 
 const app = express();
 const server = http.Server(app);
-server.listen(80);
-
-const socketApp = express();
-const socketServer = http.Server(socketApp);
-const io = socketio(socketServer);
+const io = socketio(server);
 io.origins("*:*");
-socketServer.listen(81);
+server.listen(80);
 
 const publicPath = path.join(__dirname, 'public');
 app.use('/public', express.static(publicPath));
