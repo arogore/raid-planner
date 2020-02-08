@@ -8,12 +8,12 @@ const LobbyManager = require('./lobby-manager');
 
 const app = express();
 const server = http.Server(app);
-const io = socketio(server, { path: '/planner/socket.io/' });
+const io = socketio(server, { path: '/socket.io/' });
 
 const lobbyManager = new LobbyManager();
 
 io.origins("*:*");
-server.listen(23451);
+server.listen(80);
 
 app.get('/room', cors(), function(req, res) {
   const pw = 'test';//process.env.RAID_PLANNER_PASSWORD;
@@ -27,6 +27,7 @@ app.get('/room', cors(), function(req, res) {
 });
 
 io.on('connection', function (socket) {
+  console.log('connected.');
   socket.on('line-drawn', function(line) {
     socket.broadcast.to(socket.room).emit('line-drawn', line);
   });
@@ -36,6 +37,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('join-room', function(room) {
+    console.log('joined room.');
     socket.leaveAll();
     socket.join(room);
     socket.room = room;

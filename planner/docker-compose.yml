@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nodejs:
+    image: raid-planner
+    container_name: raid-planner
+  nginx:
+    image: planner-nginx
+    container_name: planner-nginx
+    ports:
+    - "80:80"
+    volumes: 
+    - ./app/server/src/index.html:/usr/share/nginx/html/index.html
+    - ./app/server/src/public:/usr/share/nginx/html/public
