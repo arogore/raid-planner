@@ -1,14 +1,20 @@
 var path = require('path');
 const express = require('express');
+const http = require('http');
+const socketio = require('socket.io');
+
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const server = http.Server(app);
+server.listen(80);
+
+const socketApp = express();
+const socketServer = http.Server(socketApp);
+const io = socketio(socketServer);
+io.origins("*:*");
+socketServer.listen(81);
 
 const publicPath = path.join(__dirname, 'public');
 app.use('/public', express.static(publicPath));
-
-io.origins("*:*");
-server.listen(80);
 
 app.get('/', function (req, res) {
   console.log('root requested!');
