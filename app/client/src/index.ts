@@ -1,18 +1,31 @@
 import * as io from "socket.io-client";
 import Drawer from "./drawer";
 import config from "../config.default";
+import LobbyManager from "./lobby-manager";
+import Dispatcher from "./dispatcher";
 import Pickr from "@simonwep/pickr";
 
 export default class Main {
 
     private drawer: Drawer;
+    private lobbyManager: LobbyManager;
 
     run() {
         const url = config.url;
 
         window.onload = () => {
             const socket = io.connect(url);
-            this.drawer = new Drawer(socket);
+            const dispatcher = new Dispatcher(socket);
+            this.lobbyManager = new LobbyManager(dispatcher);
+            this.drawer = new Drawer(socket, dispatcher);
+
+            const currUrl = new URL(window.location.href);
+            const room = currUrl.searchParams.get('room');
+
+            if (room) {
+                dispatcher.joinRoom(room);
+            }
+
             this.createElements();
         };
     }
@@ -48,8 +61,6 @@ export default class Main {
                 }
             }
         }).on('save', (color: any, instance: any) => {
-            console.log(color);
-            console.log(`setting color to ${color.toHEXA().toString()}`);
             this.drawer.color = color.toHEXA().toString();
             instance.hide();
         });

@@ -6,19 +6,16 @@ export default class Drawer {
     private canvasId: string = "main-canvas";
     private canvas: HTMLCanvasElement;
     private context: CanvasRenderingContext2D;
-    private dispatcher: Dispatcher;
 
     public color: string;
     private drawing: boolean;
     private currentLine: Array<Point>;
 
-    constructor(socket: SocketIOClient.Socket) {
+    constructor(socket: SocketIOClient.Socket, private dispatcher: Dispatcher) {
         this.canvas = this.getCanvas();
         this.context = this.canvas.getContext("2d");
         this.context.lineWidth = 4;
-        this.context.strokeStyle = "aqua";
-
-        this.dispatcher = new Dispatcher(socket, 'room');
+        this.color = "white";
         this.registerEvents();
 
         const bg = new Image();
@@ -33,7 +30,6 @@ export default class Drawer {
         socket.on('point-drawn', (payload: PointEvent) => {
             const oldColor = this.color;
             this.context.strokeStyle = payload.color;
-            console.info(`payload color: ${payload.color}`);
             this.drawFrom(payload.origin, payload.destination, false);
             this.context.strokeStyle = oldColor;
         });
@@ -61,6 +57,10 @@ export default class Drawer {
     }
 
     drawFrom(origin: Point, destination: Point, isOrigin: boolean = true) {
+        if (isOrigin) {
+            this.context.strokeStyle = this.color;
+        }
+
         this.context.beginPath();
 
         this.moveTo(origin);

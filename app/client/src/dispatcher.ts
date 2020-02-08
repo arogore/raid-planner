@@ -3,7 +3,7 @@ import PointEvent from "./models/point-event";
 
 export default class Dispatcher {
 
-    constructor(private socket: SocketIOClient.Socket, private room: string) { 
+    constructor(private socket: SocketIOClient.Socket) { 
     }
 
     lineDrawn(line: Point[]) {
@@ -20,6 +20,10 @@ export default class Dispatcher {
         };
 
         this.socket.emit(CanvasEvent.PointDrawn, point);
+    }
+
+    joinRoom(id: string) {
+        this.socket.emit('join-room', id);
     }
 }
 
