@@ -8,7 +8,7 @@ export default class Drawer {
     private context: CanvasRenderingContext2D;
     private dispatcher: Dispatcher;
 
-    private color: string;
+    public color: string;
     private drawing: boolean;
     private currentLine: Array<Point>;
 
@@ -33,6 +33,7 @@ export default class Drawer {
         socket.on('point-drawn', (payload: PointEvent) => {
             const oldColor = this.color;
             this.context.strokeStyle = payload.color;
+            console.info(`payload color: ${payload.color}`);
             this.drawFrom(payload.origin, payload.destination, false);
             this.context.strokeStyle = oldColor;
         });
@@ -90,9 +91,6 @@ export default class Drawer {
         this.canvas.onmouseup = () => {
             this.drawing = false;
         };
-
-        document.getElementById("aqua-btn").onclick = () => this.color = "aqua";
-        document.getElementById("yellow-btn").onclick = () => this.color = "yellow";
     }
 
     moveTo(point: Point) {

@@ -1,14 +1,29 @@
 <html>
     <head>
-        <script src="public/bundle.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
     </head>
+    <style>
+        .color-container {
+            margin: 8px;
+            padding: 8px;
+            background-color: rgba(151, 152, 164, 0.37);
+            width: max-content;
+        }
+
+        .pickr {
+            display: inline-block;
+        }
+    </style>
     <body>
+        <div></div>
+
         <canvas id="main-canvas" width="800" height="600" style="border: 1px solid black">
 
         </canvas>
-        <div>
-            <button id="aqua-btn" style="background-color: aqua; height: 32px; width: 32px;"></button>
-            <button id="yellow-btn" style="background-color: yellow; height: 32px; width: 32px;"></button>
+        <div class="color-container">
+            <span style="margin-right: 4px">Colors: </span>
+            <div class="color-picker"></div>
         </div>
     </body>
+    <script src="public/bundle.js"></script>
 </html>
